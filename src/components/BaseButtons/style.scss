@@ -1,0 +1,11 @@
+$font-size: 24px;
+$background-color: purple;
+$border-radius-button: 0.25rem;
+
+.btnAdd {
+  background-color: $background-color;
+  padding: 0.2rem 0.5rem;
+  color: white;
+  font-size: $font-size;
+  border-radius: $border-radius-button;
+}
