@@ -6,3 +6,4 @@ const BaseHeaderCl = new BaseHeader();
 
 BaseHeaderCl.render();
 BaseButtonCl.render("hello world");
+let name = "hosein";
