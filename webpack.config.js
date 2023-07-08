@@ -72,6 +72,10 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.hbs/,
+        use: ["handlebars-loader"],
+      },
     ],
   },
 
@@ -83,10 +87,9 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HTMLWebpackPlugin({
       title: "New webpack html page",
+      template: "src/index.hbs",
       filename: "subfolder/custom-html.html",
-      meta: {
-        description: "some descriptions",
-      },
+      description: "Some dummy description",
     }),
   ],
 
