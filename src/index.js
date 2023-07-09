@@ -5,7 +5,7 @@ const BaseButtonCl = new BaseButton();
 const BaseHeaderCl = new BaseHeader();
 
 BaseHeaderCl.render();
-BaseButtonCl.render("hello world");
+BaseButtonCl.render("hello new webpack");
 let name = "hosein";
 
 
