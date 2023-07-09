@@ -1,14 +1,15 @@
 const path = require("path");
-const TerserPLugin = require("terser-webpack-plugin");
-const MiniCssExtractPLugin = require("mini-css-extract-plugin");
+// const TerserPLugin = require("terser-webpack-plugin");
+// const MiniCssExtractPLugin = require("mini-css-extract-plugin");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 // Clean webpack dist
 // Approach 1 --- using cleanWebpackPlugin
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
+  mode: "development",
   output: {
-    filename: "bundle.[contenthash].js",
+    filename: "bundle .js",
     path: path.resolve(__dirname, "./dist"),
 
     // clean: {
@@ -49,16 +50,12 @@ module.exports = {
       },
       {
         test: /\.(css)$/,
-        use: [MiniCssExtractPLugin.loader, "css-loader"],
+        use: ['style-loader', "css-loader"],
       },
-      // {
-      //   test: /\.css$/,
-      //   use: ["style-loader", "css-loader"],
-      // },
 
       {
         test: /\.(scss)$/,
-        use: [MiniCssExtractPLugin.loader, "css-loader", "sass-loader"],
+        use: ['style-loader', "css-loader", "sass-loader"],
       },
 
       {
@@ -80,10 +77,10 @@ module.exports = {
   },
 
   plugins: [
-    new TerserPLugin(),
-    new MiniCssExtractPLugin({
-      filename: "styles.[contenthash].css",
-    }),
+    // new TerserPLugin(),
+    // new MiniCssExtractPLugin({
+    //   filename: "styles.css",
+    // }),
     new CleanWebpackPlugin(),
     new HTMLWebpackPlugin({
       title: "New webpack html page",
@@ -93,5 +90,5 @@ module.exports = {
     }),
   ],
 
-  mode: "none",
+
 };
