@@ -5,6 +5,76 @@ const HTMLWebpackPlugin = require("html-webpack-plugin");
 // Clean webpack dist
 // Approach 1 --- using cleanWebpackPlugin
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+// Configs
+
+// Plugins
+const webpackPlugins = [
+  new HtmlWebpackPlugin({
+    title: "some dummy title",
+    description: "Some dummy description",
+    filename: "subfolder/custom.html",
+    template: "src/index.hbs",
+  }),
+];
+
+// Rules and loader
+const lodaerRules = [
+  {
+    test: /\.(txt)/,
+    type: "asset/source",
+  },
+  {
+    test: /.(ttf|woff(2)?)(\?[a-z0-9]+)?$/,
+    type: "asset/resource",
+    generator: {
+      filename: "statics/fonts/[hash][ext][qeury]",
+    },
+  },
+  {
+    test: /\.(png|jpg)$/,
+    type: "asset/resource",
+    generator: {
+      filename: "statics/images/[hash][ext][query]",
+    },
+    parser: {
+      dataUrlCondition: {
+        maxSize: 1024 * 10,
+      },
+    },
+  },
+
+  {
+    test: /\.svg/,
+    type: "asset/inline",
+  },
+
+  {
+    test: /\.css$/,
+    use: ["style-loader", "css-loader"],
+  },
+  {
+    test: /\.(scss)$/,
+    use: ["style-loader", "css-loader", "sass-loader"],
+  },
+  {
+    test: /\.js$/,
+    exclude: /node_modules/,
+    use: {
+      loader: "babel-loader",
+      options: {
+        presets: ["@babel/preset-env"],
+        plugins: ["@babel/plugin-proposal-class-properties"],
+      },
+    },
+  },
+  {
+    test: /\.hbs$/,
+    use: ["handlebars-loader"],
+  },
+];
 
 module.exports = {
   mode: "development",
@@ -18,89 +88,20 @@ module.exports = {
     // },
   },
 
-  devServer:{
-    port:9000,
-    static:{
-      directory:path.resolve(__dirname, "./dist"),
-
+  devServer: {
+    port: 9000,
+    static: {
+      directory: path.resolve(__dirname, "./dist"),
     },
-    devMiddleware:{
-      index:'subfolder/custom-html.html',
-      writeToDisk:true
-    }
+    devMiddleware: {
+      index: "subfolder/custom.html",
+      writeToDisk: true,
+    },
   },
 
   module: {
-    rules: [
-      {
-        test: /\.(txt)/,
-        type: "asset/source",
-      },
-      {
-        test: /\.svg/,
-        type: "asset/inline",
-      },
-      {
-        test: /.(ttf|woff(2)?)(\?[a-z0-9]+)?$/,
-        type: "asset/resource",
-        generator: {
-          filename: "statics/fonts/[hash][ext][query]",
-        },
-      },
-      {
-        test: /\.(png|jpg)$/,
-        type: "asset/resource",
-        generator: {
-          filename: "statics/images/[hash][ext][query]",
-        },
-
-        parser: {
-          dataUrlCondition: {
-            maxSize: 10 * 1024,
-          },
-        },
-      },
-      {
-        test: /\.(css)$/,
-        use: ['style-loader', "css-loader"],
-      },
-
-      {
-        test: /\.(scss)$/,
-        use: ['style-loader', "css-loader", "sass-loader"],
-      },
-
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-env"],
-            plugins: ["@babel/plugin-proposal-class-properties"],
-          },
-        },
-      },
-      {
-        test: /\.hbs/,
-        use: ["handlebars-loader"],
-      },
-    ],
+    rules: [...lodaerRules],
   },
 
-  plugins: [
-    // new TerserPLugin(),
-    // new MiniCssExtractPLugin({
-    //   filename: "styles.css",
-    // }),
-    new CleanWebpackPlugin(),
-    new HTMLWebpackPlugin({
-      title: "New webpack html page",
-      template: "src/index.hbs",
-      filename: "subfolder/custom-html.html",
-      description: "Some dummy description",
-    }),
-  ],
-
-
+  plugins: [...webpackPlugins],
 };

@@ -89,10 +89,8 @@ module.exports = {
     new HTMLWebpackPlugin({
       title: "New webpack html page",
       template: "src/index.hbs",
-      filename: "subfolder/custom-html.html",
+      filename: "subfolder/custom.html",
       description: "Some dummy description",
     }),
   ],
-
-
 };
