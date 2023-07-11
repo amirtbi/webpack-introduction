@@ -9,6 +9,12 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 module.exports = {
   mode: "production",
 
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+    },
+  },
+
   entry: {
     home: "./src/home.js",
     gallery: "./src/gallery.js",
@@ -92,10 +98,20 @@ module.exports = {
     }),
     new CleanWebpackPlugin(),
     new HTMLWebpackPlugin({
-      title: "New webpack html page",
-      template: "src/index.hbs",
-      filename: "subfolder/custom.html",
-      description: "Some dummy description",
+      title: "Home page",
+      template: "src/page-template.hbs",
+      filename: "home.html",
+      chunks: ["home"],
+      description: "Home page ",
+      minify: false,
+    }),
+    new HTMLWebpackPlugin({
+      title: "Gallery page",
+      template: "src/page-template.hbs",
+      filename: "gallery.html",
+      chunks: ["gallery"],
+      description: "Gallery page",
+      minify: false,
     }),
   ],
 };

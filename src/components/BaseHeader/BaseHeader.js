@@ -1,8 +1,8 @@
 import "./style.scss";
 class BaseHeader {
-  render() {
+  render(pageTitle) {
     const headerEl = document.createElement("header");
-    headerEl.innerText = "header component";
+    headerEl.innerText = "header component in page" + pageTitle;
     headerEl.classList.add("custom-header");
 
     const body = document.querySelector("body");
