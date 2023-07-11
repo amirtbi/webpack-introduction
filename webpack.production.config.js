@@ -8,8 +8,13 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   mode: "production",
+
+  entry: {
+    home: "./src/home.js",
+    gallery: "./src/gallery.js",
+  },
   output: {
-    filename: "bundle.[contenthash].js",
+    filename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "./dist"),
 
     // clean: {
@@ -36,7 +41,7 @@ module.exports = {
         },
       },
       {
-        test: /\.(png|jpg)$/,
+        test: /\.(png|jpg|jpeg)$/,
         type: "asset/resource",
         generator: {
           filename: "statics/images/[hash][ext][query]",
@@ -83,7 +88,7 @@ module.exports = {
   plugins: [
     new TerserPLugin(),
     new MiniCssExtractPLugin({
-      filename: "styles.[contenthash].css",
+      filename: "[name].[contenthash].css",
     }),
     new CleanWebpackPlugin(),
     new HTMLWebpackPlugin({
