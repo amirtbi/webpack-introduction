@@ -9,9 +9,11 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 module.exports = {
   mode: "production",
 
+  // Make a seperate file.js for share packages used in entries
   optimization: {
     splitChunks: {
       chunks: "all",
+      minSize:3000
     },
   },
 
