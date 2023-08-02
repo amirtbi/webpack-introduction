@@ -1,34 +1,43 @@
 const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPLugin = require("terser-webpack-plugin");
-const MiniCssExtractPLugin = require("mini-css-extract-plugin");
-const HTMLWebpackPlugin = require("html-webpack-plugin");
-// Clean webpack dist
-// Approach 1 --- using cleanWebpackPlugin
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+
+const HTMLWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+const entries = ["gallery", "home"];
 
 module.exports = {
   mode: "production",
 
-  // Make a seperate file.js for share packages used in entries
   optimization: {
     splitChunks: {
       chunks: "all",
-      minSize:3000
+      minSize: 3 * 1024,
     },
   },
-
-  entry: {
-    home: "./src/home.js",
-    gallery: "./src/gallery.js",
+  //   entry: {
+  //     home: "/scr/pages/home/index.js",
+  //     gallery: "./src/pages/gallery/index.js",
+  //   },
+  entry: () => {
+    let entriesList = {};
+    for (const entry of entries) {
+      entriesList[entry] = path.resolve(
+        __dirname,
+        "src",
+        "pages",
+        entry,
+        "index.js"
+      );
+    }
+    return entriesList;
   },
-  output: {
-    filename: "[name].[contenthash].js",
-    path: path.resolve(__dirname, "./dist"),
 
-    // clean: {
-    //   dry: true,
-    //   keep: /\.css/,
-    // },
+  output: {
+    path: path.resolve(__dirname, "./dist"),
+    filename: "[name].[contenthash].js",
   },
 
   module: {
@@ -42,19 +51,18 @@ module.exports = {
         type: "asset/inline",
       },
       {
-        test: /.(ttf|woff(2)?)(\?[a-z0-9]+)?$/,
+        test: /\.(ttf|woff(2)?)(\?[a-z0-9]+)?$/,
         type: "asset/resource",
         generator: {
           filename: "statics/fonts/[hash][ext][query]",
         },
       },
       {
-        test: /\.(png|jpg|jpeg)$/,
+        test: /\.(jpg|png|jpeg)$/,
         type: "asset/resource",
         generator: {
           filename: "statics/images/[hash][ext][query]",
         },
-
         parser: {
           dataUrlCondition: {
             maxSize: 10 * 1024,
@@ -63,21 +71,14 @@ module.exports = {
       },
       {
         test: /\.(css)$/,
-        use: [MiniCssExtractPLugin.loader, "css-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
-      // {
-      //   test: /\.css$/,
-      //   use: ["style-loader", "css-loader"],
-      // },
-
       {
         test: /\.(scss)$/,
-        use: [MiniCssExtractPLugin.loader, "css-loader", "sass-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
-
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
+        test: /\.(js)$/,
         use: {
           loader: "babel-loader",
           options: {
@@ -94,26 +95,20 @@ module.exports = {
   },
 
   plugins: [
-    new TerserPLugin(),
-    new MiniCssExtractPLugin({
-      filename: "[name].[contenthash].css",
-    }),
     new CleanWebpackPlugin(),
-    new HTMLWebpackPlugin({
-      title: "Home page",
-      template: "src/page-template.hbs",
-      filename: "home.html",
-      chunks: ["home"],
-      description: "Home page ",
-      minify: false,
-    }),
-    new HTMLWebpackPlugin({
-      title: "Gallery page",
-      template: "src/page-template.hbs",
-      filename: "gallery.html",
-      chunks: ["gallery"],
-      description: "Gallery page",
-      minify: false,
-    }),
+    new TerserPLugin(),
+    new MiniCssExtractPlugin({ filename: "[name].[contenthash].css" }),
+
+    ...entries.map(
+      (entry) =>
+        new HtmlWebpackPlugin({
+          filename: `${entry}.html`,
+          template: "./src/page-template.hbs",
+          minify: false,
+          chunks: [`${entry}`],
+          title: "dynamic title",
+          description: "Dynamic description",
+        })
+    ),
   ],
 };
