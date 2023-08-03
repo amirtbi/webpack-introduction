@@ -37,6 +37,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "./dist"),
     filename: "[name].[contenthash].js",
+    publicPath: "/static/",
   },
 
   module: {
@@ -53,14 +54,14 @@ module.exports = {
         test: /\.(ttf|woff(2)?)(\?[a-z0-9]+)?$/,
         type: "asset/resource",
         generator: {
-          filename: "statics/fonts/[hash][ext][query]",
+          filename: "static/fonts/[hash][ext][query]",
         },
       },
       {
         test: /\.(jpg|png|jpeg)$/,
         type: "asset/resource",
         generator: {
-          filename: "statics/images/[hash][ext][query]",
+          filename: "static/images/[hash][ext][query]",
         },
         parser: {
           dataUrlCondition: {
