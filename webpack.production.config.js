@@ -3,7 +3,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPLugin = require("terser-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
-const HTMLWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const entries = ["gallery", "home"];
