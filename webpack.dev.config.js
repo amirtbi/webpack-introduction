@@ -101,11 +101,6 @@ module.exports = {
   output: {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "./dist"),
-
-    // clean: {
-    //   dry: true,
-    //   keep: /\.css/,
-    // },
   },
 
   devServer: {
@@ -123,5 +118,5 @@ module.exports = {
     rules: [...lodaerRules],
   },
 
-  plugins: [...webpackPlugins],
+  plugins: [...webpackPlugins, new CleanWebpackPlugin()],
 };
