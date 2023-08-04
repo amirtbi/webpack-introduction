@@ -1,0 +1,23 @@
+@font-face {
+  font-family: "roboto-regular";
+  src: url("../../fonts/Roboto/Roboto-Regular.ttf");
+}
+
+@font-face {
+  font-family: "roboto-bold";
+  src: url("../../fonts/Roboto//Roboto-Bold.ttf");
+}
+
+$font-size: 30px;
+$background-color: purple;
+$border-radius-button: 0.25rem;
+$font-regular: roboto-regular;
+
+.btnAdd {
+  background-color: $background-color;
+  padding: 0.2rem 0.5rem;
+  color: white;
+  font-size: $font-size;
+  border-radius: $border-radius-button;
+  font-family: $font-regular;
+}
