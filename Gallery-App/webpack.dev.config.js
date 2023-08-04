@@ -67,7 +67,7 @@ const lodaerRules = [
   },
 ];
 
-const entries = ["gallery", "home"];
+const entries = ["gallery"];
 const webpackPlugins = [
   ...entries.map(
     (entry) =>
@@ -104,12 +104,12 @@ module.exports = {
   },
 
   devServer: {
-    port: 9000,
+    port: 9001,
     static: {
       directory: path.resolve(__dirname, "./dist"),
     },
     devMiddleware: {
-      index: "home.html",
+      index: "gallery.html",
       writeToDisk: true,
     },
   },

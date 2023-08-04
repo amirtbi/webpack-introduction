@@ -67,7 +67,7 @@ const lodaerRules = [
   },
 ];
 
-const entries = ["gallery", "home"];
+const entries = ["home"];
 const webpackPlugins = [
   ...entries.map(
     (entry) =>

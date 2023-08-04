@@ -5,7 +5,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-const entries = ["gallery", "home"];
+const entries = ["home"];
 
 module.exports = {
   mode: "production",
@@ -105,9 +105,8 @@ module.exports = {
           filename: `${entry}.html`,
           template: "./src/page-template.hbs",
           minify: false,
-          chunks: [`${entry}`],
           title: "dynamic title",
-          description: "Dynamic description",
+          description: "Home description",
         })
     ),
   ],
