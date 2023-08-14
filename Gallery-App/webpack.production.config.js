@@ -4,7 +4,7 @@ const TerserPLugin = require("terser-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-
+const { ModuleFederationPlugin } = require("webpack").container;
 const entries = ["gallery"];
 
 module.exports = {
@@ -109,5 +109,11 @@ module.exports = {
           description: "Gallery description",
         })
     ),
+    new ModuleFederationPlugin({
+      name: "GalleryApp",
+      remotes: {
+        HomeApp: "HomeApp@http://localhost:9000/remoteEntry.js",
+      },
+    }),
   ],
 };

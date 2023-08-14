@@ -6,7 +6,7 @@ const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-
+const { ModuleFederationPlugin } = require("webpack").container;
 // Configs
 
 // Plugins
@@ -118,5 +118,14 @@ module.exports = {
     rules: [...lodaerRules],
   },
 
-  plugins: [...webpackPlugins, new CleanWebpackPlugin()],
+  plugins: [
+    ...webpackPlugins,
+    new CleanWebpackPlugin(),
+    new ModuleFederationPlugin({
+      name: "GalleryApp",
+      remotes: {
+        HomeApp: "HomeApp@http://localhost:9000/remoteEntry.js",
+      },
+    }),
+  ],
 };
