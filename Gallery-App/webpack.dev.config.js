@@ -76,7 +76,7 @@ const webpackPlugins = [
         template: "./src/page-template.hbs",
         minify: false,
         chunks: [`${entry}`],
-        title: "dynamic title",
+        title: "Gallery",
         description: "Dynamic description",
       })
   ),

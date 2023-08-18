@@ -6,20 +6,13 @@ const fs = require("fs");
 app.use("/static", express.static(path.resolve(__dirname, "../dist")));
 // Routers
 
-app.get("/home/", (req, res) => {
+app.get("/", (req, res) => {
   const pathToHtml = path.resolve(__dirname, "../dist/home.html");
 
   const contentFromHtmlFile = fs.readFileSync(pathToHtml, "utf-8");
   res.send(contentFromHtmlFile);
   console.log("Requses sent");
 });
-app.get("/gallery/", (req, res) => {
-  const pathToHtml = path.resolve(__dirname, "../dist/gallery.html");
-
-  const contentFromHtmlFile = fs.readFileSync(pathToHtml, "utf-8");
-  res.send(contentFromHtmlFile);
-  console.log("Requses sent");
-});
-app.listen("3000", () => {
-  console.log("app is running in http://localhost:3000/");
+app.listen("9000", () => {
+  console.log("app is running in http://localhost:9000/");
 });

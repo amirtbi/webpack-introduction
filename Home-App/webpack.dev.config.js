@@ -1,12 +1,8 @@
 const path = require("path");
-// const TerserPLugin = require("terser-webpack-plugin");
-// const MiniCssExtractPLugin = require("mini-css-extract-plugin");
-// Clean webpack dist
-// Approach 1 --- using cleanWebpackPlugin
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-
+const { ModuleFederationPlugin } = require("webpack").container;
 // Configs
 
 // Plugins
@@ -76,7 +72,7 @@ const webpackPlugins = [
         template: "./src/page-template.hbs",
         minify: false,
         chunks: [`${entry}`],
-        title: "dynamic title",
+        title: "Home ",
         description: "Dynamic description",
       })
   ),
@@ -101,6 +97,7 @@ module.exports = {
   output: {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "./dist"),
+    publicPath: "http://localhost:9000/",
   },
 
   devServer: {
@@ -118,5 +115,17 @@ module.exports = {
     rules: [...lodaerRules],
   },
 
-  plugins: [...webpackPlugins, new CleanWebpackPlugin()],
+  plugins: [
+    ...webpackPlugins,
+    new CleanWebpackPlugin(),
+    new ModuleFederationPlugin({
+      name: "HomeApp",
+      filename: "remoteEntry.js",
+      exposes: {
+        "./HomeBaseButton": "./src/components/BaseButtons/BaseButton.js",
+        "./HomeBaseList": "./src/components/BaseList/BaseListContainer.js",
+        "./HomeBaseHeader": "/src/components/BaseHeader/BaseHeader.js",
+      },
+    }),
+  ],
 };

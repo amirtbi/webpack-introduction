@@ -4,6 +4,7 @@ const TerserPLugin = require("terser-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { ModuelFederationPlugin } = require("webpack").container;
 
 const entries = ["home"];
 
@@ -37,7 +38,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "./dist"),
     filename: "[name].[contenthash].js",
-    publicPath: "/static/",
+    publicPath: "https://locahost:9001/",
   },
 
   module: {
@@ -109,5 +110,13 @@ module.exports = {
           description: "Home description",
         })
     ),
+    new ModuelFederationPlugin({
+      name: "HomeApp",
+      filename: "remoteEntry.js",
+      exposes: {
+        "/HomeBaseButton": "./src/components/BaseButtons/BaseButton.js",
+        "./HomeBaseList": "./src/components/BaseList/BaseListContainer.js",
+      },
+    }),
   ],
 };

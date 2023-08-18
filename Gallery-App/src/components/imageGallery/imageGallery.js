@@ -1,3 +1,4 @@
+import "./style.scss";
 import BackgroundImage1 from "./image-1.jpg";
 import BackgroundImage2 from "./image-2.jpg";
 import BackgroundImage3 from "./image-3.jpeg";
@@ -9,6 +10,7 @@ export default class Gallery {
     const imageEl = document.createElement("img");
     imageEl.src = bgList[this.#counter];
     imageEl.alt = "collection";
+    imageEl.className = "image-container";
 
     const bodyDomElement = document.querySelector("body");
 

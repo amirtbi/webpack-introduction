@@ -1,0 +1,13 @@
+.lists {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #eee;
+  border-radius: 0.25rem;
+  padding: 1rem;
+}
+
+.list-item {
+  color: purple;
+  font-weight: bold;
+  margin: 0.2rem;
+}
