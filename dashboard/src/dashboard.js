@@ -1,3 +1,13 @@
+import "./app.css";
+import BaseHeaderCl from "./components/BaseHeader";
+
+const navs = [
+  { name: "HomeApp", url: "home-app-page" },
+  { name: "GalleryApp", url: "gallery-app-page" },
+];
+
+const headerCl = new BaseHeaderCl();
+headerCl.render(navs);
 const url = window.location.pathname;
 
 if (url === "/home-app-page") {
