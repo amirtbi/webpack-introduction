@@ -126,7 +126,7 @@ module.exports = {
 
       filename: "remoteEntry.js",
       exposes: {
-        GalleryApp: "./src/pages/gallery/index.js",
+        "./GalleryAppPage": "./src/pages/gallery/index.js",
       },
     }),
   ],

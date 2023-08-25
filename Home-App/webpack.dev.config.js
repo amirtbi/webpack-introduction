@@ -121,7 +121,7 @@ module.exports = {
       name: "HomeApp",
       filename: "remoteEntry.js",
       exposes: {
-        "/HomeApp": "./src/components/pages/home/index.js",
+        "./HomeAppPage": "./src/pages/home/index.js",
       },
     }),
   ],

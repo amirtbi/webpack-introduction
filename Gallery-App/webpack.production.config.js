@@ -103,7 +103,6 @@ module.exports = {
       (entry) =>
         new HtmlWebpackPlugin({
           filename: `${entry}.html`,
-          template: "./src/page-template.hbs",
           minify: false,
           title: "dynamic title",
           description: "Gallery description",
@@ -113,7 +112,7 @@ module.exports = {
       name: "GalleryApp",
       filename: "remoteEntry.js",
       exposes: {
-        GalleryApp: "./src/pages/gallery/index.js",
+        "./GalleryAppPage": "./src/pages/gallery/index.js",
       },
     }),
   ],

@@ -4,7 +4,7 @@ const TerserPLugin = require("terser-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { ModuelFederationPlugin } = require("webpack").container;
+const { ModuleFederationPlugin } = require("webpack").container;
 
 const entries = ["home"];
 
@@ -109,11 +109,11 @@ module.exports = {
           description: "Home description",
         })
     ),
-    new ModuelFederationPlugin({
+    new ModuleFederationPlugin({
       name: "HomeApp",
       filename: "remoteEntry.js",
       exposes: {
-        "/HomeApp": "./src/pages/home/index.js",
+        "./HomeAppPage": "./src/pages/home/index.js",
       },
     }),
   ],
