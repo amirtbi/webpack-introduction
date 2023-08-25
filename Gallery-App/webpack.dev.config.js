@@ -73,7 +73,6 @@ const webpackPlugins = [
     (entry) =>
       new HtmlWebpackPlugin({
         filename: `${entry}.html`,
-        template: "./src/page-template.hbs",
         minify: false,
         chunks: [`${entry}`],
         title: "Gallery",
@@ -101,6 +100,7 @@ module.exports = {
   output: {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "./dist"),
+    publicPath: "http://localhost:9001/",
   },
 
   devServer: {
@@ -123,8 +123,10 @@ module.exports = {
     new CleanWebpackPlugin(),
     new ModuleFederationPlugin({
       name: "GalleryApp",
-      remotes: {
-        HomeApp: "HomeApp@http://localhost:9000/remoteEntry.js",
+
+      filename: "remoteEntry.js",
+      exposes: {
+        GalleryApp: "./src/pages/gallery/index.js",
       },
     }),
   ],

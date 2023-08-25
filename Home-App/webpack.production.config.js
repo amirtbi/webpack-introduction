@@ -38,7 +38,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "./dist"),
     filename: "[name].[contenthash].js",
-    publicPath: "https://locahost:9001/",
+    publicPath: "https://locahost:9000/",
   },
 
   module: {
@@ -104,7 +104,6 @@ module.exports = {
       (entry) =>
         new HtmlWebpackPlugin({
           filename: `${entry}.html`,
-          template: "./src/page-template.hbs",
           minify: false,
           title: "dynamic title",
           description: "Home description",
@@ -114,8 +113,7 @@ module.exports = {
       name: "HomeApp",
       filename: "remoteEntry.js",
       exposes: {
-        "/HomeBaseButton": "./src/components/BaseButtons/BaseButton.js",
-        "./HomeBaseList": "./src/components/BaseList/BaseListContainer.js",
+        "/HomeApp": "./src/pages/home/index.js",
       },
     }),
   ],

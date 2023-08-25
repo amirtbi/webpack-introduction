@@ -37,7 +37,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "./dist"),
     filename: "[name].[contenthash].js",
-    publicPath: "/static/",
+    publicPath: "http://localhost:9001/",
   },
 
   module: {
@@ -111,8 +111,9 @@ module.exports = {
     ),
     new ModuleFederationPlugin({
       name: "GalleryApp",
-      remotes: {
-        HomeApp: "HomeApp@http://localhost:9000/remoteEntry.js",
+      filename: "remoteEntry.js",
+      exposes: {
+        GalleryApp: "./src/pages/gallery/index.js",
       },
     }),
   ],

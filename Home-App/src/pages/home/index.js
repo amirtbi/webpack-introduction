@@ -1,15 +1,27 @@
-import BaseButton from "../../components/BaseButtons/BaseButton";
-import BaseHeader from "../../components/BaseHeader/BaseHeader";
-import BaseProducts from "../../components/BaseList/BaseListContainer";
-// import _ from "loadsh";
-// import React from "react";
+import CardList from "../../components/HomeCardList/HomeCardList";
 
-const lists = ["benz", "Pride", "Cerato"];
-// Call function
-const BaseButtonCl = new BaseButton();
-const BaseHeaderCl = new BaseHeader();
-const BaseList = new BaseProducts(lists, "Header of list");
+// const products = [
+//   {
+//     category: "Cars",
+//     items: [
+//       { name: "Benz", price: "2000" },
+//       { name: "Ferrari", price: "10000" },
+//     ],
+//   },
+//   {
+//     category: "Motorbik",
+//     items: [
+//       { name: "Saipa", price: "2000" },
+//       { name: "Irankhodro", price: "10000" },
+//     ],
+//   },
+// ];
 
-BaseHeaderCl.render("Home");
-BaseButtonCl.render("hello new webpack");
-BaseList.render();
+class HomeApp {
+  render(products) {
+    const cardListCL = new CardList(products);
+    cardListCL.render();
+  }
+}
+
+export default HomeApp;

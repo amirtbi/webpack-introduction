@@ -69,7 +69,6 @@ const webpackPlugins = [
     (entry) =>
       new HtmlWebpackPlugin({
         filename: `${entry}.html`,
-        template: "./src/page-template.hbs",
         minify: false,
         chunks: [`${entry}`],
         title: "Home ",
@@ -122,9 +121,7 @@ module.exports = {
       name: "HomeApp",
       filename: "remoteEntry.js",
       exposes: {
-        "./HomeBaseButton": "./src/components/BaseButtons/BaseButton.js",
-        "./HomeBaseList": "./src/components/BaseList/BaseListContainer.js",
-        "./HomeBaseHeader": "/src/components/BaseHeader/BaseHeader.js",
+        "/HomeApp": "./src/components/pages/home/index.js",
       },
     }),
   ],
