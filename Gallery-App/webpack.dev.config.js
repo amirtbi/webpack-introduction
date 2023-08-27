@@ -128,6 +128,9 @@ module.exports = {
       exposes: {
         "./GalleryAppPage": "./src/pages/gallery/index.js",
       },
+      remotes: {
+        ImageCaption: "ImageCaption@http://localhost:9004/remoteEntry.js",
+      },
     }),
   ],
 };
